@@ -1,4 +1,7 @@
+import dotenv from "dotenv";
+dotenv.config(); 
 import emailjs from 'emailjs-com';
+
 
 const sendVerificationEmail = async (email, verificationToken) => {
   const verificationUrl = `${process.env.BASE_URL}/api/email/verify-email?token=${verificationToken}`;

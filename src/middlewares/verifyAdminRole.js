@@ -4,7 +4,15 @@ import Admin from "../models/admin.js";
 
 const verifyAdmin = async (req, res, next) => {
   try {
-    const { adminId } = req.body; // Extract adminId from the request body
+    // Check for adminId in both the request body and request parameters
+    const adminId = req.body.adminId || req.params.adminId;
+
+    // If adminId is not provided, return a Bad Request error
+    if (!adminId) {
+      return res.status(httpStatus.BAD_REQUEST).json({
+        error: "Admin ID is required in request body or parameters.",
+      });
+    }
 
     // Validate if adminId is a valid MongoDB ObjectId
     if (!mongoose.Types.ObjectId.isValid(adminId)) {
@@ -18,7 +26,7 @@ const verifyAdmin = async (req, res, next) => {
     if (!admin || admin.role !== "super-admin") {
       return res
         .status(httpStatus.UNAUTHORIZED)
-        .json({ error: "Access denied. Only super-admins can add admins." });
+        .json({ error: "Access denied. Only super-admins can perform this action." });
     }
 
     next(); // Proceed to the next middleware or controller

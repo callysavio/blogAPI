@@ -12,6 +12,8 @@ const verifyEmail = async (req, res) => {
     // Verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    console.log("Decoded Token:", decoded); // Log decoded token for debugging
+
     // Find the user associated with the email in the token
     const user = await User.findOne({ email: decoded.email });
 
@@ -26,12 +28,15 @@ const verifyEmail = async (req, res) => {
 
     // Update the user to mark them as verified
     user.verified = true;
-    user.verificationToken = null;  // Clear the verification token after successful verification
+    user.verificationToken = null; // Clear the verification token after successful verification
     await user.save();
 
     return res.status(200).json({ message: "Email verified successfully!" });
   } catch (error) {
-    return res.status(400).json({ error: "Invalid or expired verification token." });
+    console.error("JWT Verification Error:", error); // Log the error for debugging
+    return res
+      .status(400)
+      .json({ error: "Invalid or expired verification token." });
   }
 };
 

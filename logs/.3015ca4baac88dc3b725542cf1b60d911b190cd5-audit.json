@@ -9,6 +9,11 @@
             "date": 1734566828209,
             "name": "logs\\2024-12-19-rejections.log",
             "hash": "f1ed708617eccfa0964c07745c7983823023315d703dc5b7cea961b5667db523"
+        },
+        {
+            "date": 1734649693679,
+            "name": "logs\\2024-12-20-rejections.log",
+            "hash": "19561230a69b1dba2d4dab60908cba911fc8a67a2835cfcf211adf398c515bcf"
         }
     ],
     "hashType": "sha256"
